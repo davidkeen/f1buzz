@@ -1,0 +1,15 @@
+<?php
+    $this->race->raceStart->add($this->userTimezone["timezone"], Zend_Date::HOUR);
+    $this->race->qualifyingStart->add($this->userTimezone["timezone"], Zend_Date::HOUR);
+?>
+<div class="fbgreybox">
+<ul>
+    <li><fb:intl>Race:<fb:intl> <?php echo $this->race->location->name; ?></li>
+    <li><fb:intl>Race start:</fb:intl> <?php echo $this->race->raceStart->get(Zend_Date::DATETIME_MEDIUM, Zend_Locale::findLocale($this->userTimezone["locale"])); ?></li>
+    <li><fb:intl>Prediction deadline:</fb:intl> <?php echo $this->race->qualifyingStart->get(Zend_Date::DATETIME_MEDIUM, Zend_Locale::findLocale($this->userTimezone["locale"])); ?></li>
+</ul>
+</div>
+
+<?php echo $this->form; ?>
+
+<?php $this->feedStory ? $this->inlineScript()->appendScript($this->feedStory) : ""; ?>

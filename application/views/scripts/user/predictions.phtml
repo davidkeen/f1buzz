@@ -1,0 +1,106 @@
+<h3><fb:name uid="<?php echo $this->facebookId($this->userId);?>" firstnameonly="true" possessive="true" linked="false" capitalize="true"></fb:name> Profile</h3>
+<div class="user-pic">
+    <fb:profile-pic uid="<?php echo $this->facebookId($this->userId); ?>" linked="false" size="normal"></fb:profile-pic>
+</div>
+<div id="trophies">
+    <ul>
+        <?php if(!empty($this->wins)): ?>
+            <?php foreach ($this->wins as $raceId => $race): ?>
+                <li><img class="trophy" src="<?php echo $this->baseUrl(); ?>/assets/images/Trophy-Gold-icon.png" alt="Trophy" title="<?php echo $race->location->name; ?>"/></li>
+            <?php endforeach; ?>
+        <?php else: ?>
+                <li>No trophies :-(</li>
+        <?php endif; ?>
+    </ul>
+</div>
+<div id="chart"></div>
+<div id="accordion">
+<?php foreach($this->aRacePredictions as $raceId => $prediction): ?>
+    <h4><a href="#"><?php echo $prediction["race"]->location->name; ?></a></h4>
+    <div>
+        <table class="profile-prediction">
+            <thead>
+                <tr><th><fb:intl>Prediction</fb:intl></th><th><fb:intl>Result</fb:intl></th><th><fb:intl>Points</fb:intl></th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <?php if (!empty($prediction["prediction"])): ?>
+                            <ul>
+                                <li><fb:intl>Pole:</fb:intl> <?php echo $this->driverDetails($prediction["prediction"]->pole); ?></li>
+                                <li><fb:intl>First:</fb:intl> <?php echo $this->driverDetails($prediction["prediction"]->first); ?></li>
+                                <li><fb:intl>Second:</fb:intl> <?php echo $this->driverDetails($prediction["prediction"]->second); ?></li>
+                                <li><fb:intl>Third:</fb:intl> <?php echo $this->driverDetails($prediction["prediction"]->third); ?></li>
+                                <li><fb:intl>Fastest:</fb:intl> <?php echo $this->driverDetails($prediction["prediction"]->fastest); ?></li>
+                            </ul>
+                        <?php else: ?>
+                            <ul>
+                                <li><fb:intl>Prediction not available.</fb:intl></li>
+                            </ul>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php if (!empty($this->aResults[$raceId])): ?>
+                            <ul>
+                                <li><fb:intl>Pole:</fb:intl> <?php echo $this->driverDetails($this->aResults[$raceId]->pole); ?></li>
+                                <li><fb:intl>First:</fb:intl> <?php echo $this->driverDetails($this->aResults[$raceId]->first); ?></li>
+                                <li><fb:intl>Second:</fb:intl> <?php echo $this->driverDetails($this->aResults[$raceId]->second); ?></li>
+                                <li><fb:intl>Third:</fb:intl> <?php echo $this->driverDetails($this->aResults[$raceId]->third); ?></li>
+                                <li><fb:intl>Fastest:</fb:intl> <?php echo $this->driverDetails($this->aResults[$raceId]->fastest); ?></li>
+                            </ul>
+                        <?php else: ?>
+                            <ul>
+                                <li>Result not available.</li>
+                            </ul>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php if (!empty($this->aPointsPerDriver[$raceId])): ?>
+                            <ul>
+                                <li><fb:intl>Pole:</fb:intl> <?php echo $this->aPointsPerDriver[$raceId]["pole"]; ?></li>
+                                <li><fb:intl>First:</fb:intl> <?php echo $this->aPointsPerDriver[$raceId]["first"]; ?></li>
+                                <li><fb:intl>Second:</fb:intl> <?php echo $this->aPointsPerDriver[$raceId]["second"]; ?></li>
+                                <li><fb:intl>Third:</fb:intl> <?php echo $this->aPointsPerDriver[$raceId]["third"]; ?></li>
+                                <li><fb:intl>Fastest:</fb:intl> <?php echo $this->aPointsPerDriver[$raceId]["fastest"]; ?></li>
+                                <li><strong><fb:intl>TOTAL:</fb:intl> <?php echo $this->aPointsPerDriver[$raceId]["total"]; ?></strong></li>
+                            </ul>
+                        <?php else: ?>
+                            <ul>
+                                <li><fb:intl>Points not available.</fb:intl></li>
+                            </ul>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<?php endforeach; ?>
+</div>
+
+<?php $this->inlineScript()->appendScript('$(function() { $("#accordion").accordion(); });'); ?>
+
+<?php
+    // open flash chart
+    $this->inlineScript()->appendFile($this->baseUrl() . '/assets/js/json/json2.js');
+    $this->inlineScript()->appendFile($this->baseUrl() . '/assets/js/swfobject.js');
+    $this->inlineScript()->appendScript('swfobject.embedSWF("' . $this->baseUrl() . '/open-flash-chart.swf", "chart", "744", "250", "9.0.0");');
+
+    $chartFunctions = '
+        function open_flash_chart_data()
+        {
+            //alert("reading data");
+            return JSON.stringify(data);
+        }
+
+        function findSWF(movieName) {
+            if (navigator.appName.indexOf("Microsoft")!= -1) {
+                return window[movieName];
+            } else {
+                return document[movieName];
+            }
+        }
+
+        var data = ' . $this->chart->toPrettyString() . ';
+        ';
+    $this->inlineScript()->appendScript($chartFunctions);
+?>

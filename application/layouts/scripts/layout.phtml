@@ -1,0 +1,73 @@
+<?php echo $this->doctype() ?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <?php
+//        $this->headScript()->appendFile("http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php");
+        $this->headScript()->appendFile($this->baseUrl() . "/assets/js/jquery-1.3.2.min.js");
+        $this->headScript()->appendFile($this->baseUrl() . "/assets/js/jquery-ui-1.7.2.custom.min.js");
+        echo $this->headScript();
+        ?>
+        <?php
+        $this->headLink()->appendStylesheet($this->baseUrl() . "/assets/css/fb.css?v=1.0", "screen");
+        $this->headLink()->appendStylesheet($this->baseUrl() . "/assets/css/fbtabs.css?v=1.0", "screen");
+        $this->headLink()->appendStylesheet($this->baseUrl() . "/assets/css/f1buzz.css?v=1.0", "screen");
+        $this->headLink()->appendStylesheet($this->baseUrl() . "/assets/css/overcast/jquery-ui-1.7.2.custom.css?v=1.0", "screen");
+        echo $this->headLink();
+        ?>
+
+    </head>
+<body class="fbbody">
+    <!-- Facebook UID: <?php echo $this->fbUserId; ?> -->
+
+    <div style="margin: 3px 0; float: right; height: 26px;">
+    <fb:bookmark></fb:bookmark>
+    </div>
+    <div style="clear: right;"></div>
+
+    <!-- Tabs -->
+    <?php //echo $this->layout()->nav ?>
+    <?php $controllerName = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); ?>
+    <div class="fb-tabs clearfix">
+        <center>
+            <div class="left_tabs">
+                <ul class="fb-tabitems clearfix">
+                    <li><a href="<?php echo $this->baseUrl() ?>/standings" <?php echo ($controllerName == 'standings') ? 'class="selected"' : null ?>><fb:intl desc="Player rankings">Standings</fb:intl></a></li>
+                    <li><a href="<?php echo $this->baseUrl() ?>/prediction" <?php echo ($controllerName == 'prediction') ? 'class="selected"' : null ?>><fb:intl>Calendar</fb:intl></a></li>
+                    <li><a href="<?php echo $this->baseUrl() ?>/user" <?php echo ($controllerName == 'user') ? 'class="selected"' : null ?>><fb:intl>Profile</fb:intl></a></li>
+                </ul>
+            </div>
+            <div class="right_tabs">
+                <ul class="fb-tabitems clearfix">
+                    <li><a href="<?php echo $this->baseUrl() ?>/invite" <?php echo ($controllerName == 'invite') ? 'class="selected"' : null ?>><fb:intl>Invite Friends</fb:intl></a></li>
+                    <li><a href="<?php echo $this->baseUrl() ?>/help" <?php echo ($controllerName == 'help') ? 'class="selected"' : null ?>><fb:intl>Help</fb:intl></a></li>
+                </ul>
+            </div>
+        </center>
+    </div>
+    <!-- End tabs -->
+
+    <!-- Messages -->
+    <?php echo $this->flashMessenger(); ?>
+    <!-- End messages -->
+
+    <!-- Content -->
+    <?php echo $this->layout()->content ?>
+    <!-- End content -->
+
+    <?php $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', APPLICATION_ENV); ?>
+    <?php $this->inlineScript()->prependFile("http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php"); ?>
+
+    <?php $this->inlineScript()->appendScript('FB_RequireFeatures(["XFBML", "IntlTag"], function(){ FB.Facebook.init("' . $config->facebook->apiKey .'", "/xd_receiver.html"); });'); ?>
+
+    <!-- Iframe resizing see: http://wiki.developers.facebook.com/index.php/Resizable_IFrame -->
+    <!-- Note: Include this div markup as a workaround for a known bug in this release on IE where you may get a "operation aborted" error -->
+    <div id="FB_HiddenIFrameContainer" style="display:none; position:absolute; left:-100px; top:-100px; width:0px; height: 0px;" />
+    <?php $this->inlineScript()->appendScript('FB_RequireFeatures(["CanvasUtil"], function(){ FB.XdComm.Server.init("/xd_receiver.html"); FB.CanvasClient.startTimerToSizeToContent(); });'); ?>
+
+    <?php $this->inlineScript()->appendScript('FB.init("' . $config->facebook->apiKey . '", "/xd_receiver.html");'); ?>
+    <?php echo $this->inlineScript(); ?>
+</body>
+</html>

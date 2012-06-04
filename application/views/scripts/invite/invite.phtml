@@ -1,0 +1,14 @@
+<fb:serverFbml>
+    <script type="text/fbml">
+        <fb:fbml>
+            <fb:request-form type="F1 Buzz" content="<?php echo $this->content ?>"
+                action="<?php echo $this->baseUrl() . '/invite/submit'; ?>" method="POST"
+                invite="true">
+                <fb:multi-friend-selector showborder="false"
+                    actiontext="<?php echo $this->actionText ?>"
+                    bypass="cancel" exclude_ids="<?php echo $this->excludeIds; ?>">
+                </fb:multi-friend-selector>
+            </fb:request-form>
+        </fb:fbml>
+    </script>
+</fb:serverFbml>

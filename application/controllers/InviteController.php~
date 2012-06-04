@@ -1,0 +1,10 @@
+<?php
+
+class InviteController extends FacebookController
+{
+    public function indexAction()
+    {
+        $this->view->content =
+            "Join me in the F1 Buzz Formula One Prediction game ";
+    }
+}

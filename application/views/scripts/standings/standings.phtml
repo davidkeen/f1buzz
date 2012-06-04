@@ -1,0 +1,31 @@
+<h3><?php echo date("Y");?> Formula One World Championship F1 Buzz Prediction Game Standings</h3>
+
+<div class="standings">
+<table>
+    <thead>
+    <tr>
+        <th><fb:intl desc="Abbreviation of 'position'.">Pos.</fb:intl></th>
+        <th><fb:intl>Player</fb:intl></th>
+
+        <?php foreach ($this->aRaces as $race): ?>
+        <th><?php echo $race->location->shortName; ?></th>
+        <?php endforeach ?>
+
+        <th><fb:intl>Total</fb:intl></th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php $rank = 1; ?>
+    <?php foreach ($this->aStandings as $userId => $row): ?>
+    <tr <?php echo $rank % 2 != 0 ? 'class="odd"' : ''; ?> >
+        <td><?php echo $rank++; ?></td>
+        <td><a href="user/predictions/userId/<?php echo $userId; ?>/"><fb:profile-pic uid="<?php echo $this->facebookId($userId); ?>" linked="false" size="square"></fb:profile-pic></a></td>
+        <?php foreach ($row as $raceId => $points): ?>
+            <td><?php echo $points; ?></td>
+        <?php endforeach; ?>
+            <td><?php echo F1buzz_Standings_Calculator::getTotalPoints($row); ?></td>
+    </tr>
+    <?php endforeach ?>
+    </tbody>
+</table>
+</div>

@@ -1,0 +1,34 @@
+<h3><?php echo date("Y") ;?> FIA Formula One World Championship </h3>
+<!-- Format: 2010-03-14 15:00:00 GMT+03:00 -->
+<?php echo $this->aRaces[$this->nextRaceKey]->location->name; ?> <fb:intl>deadline:</fb:intl> <span id="countdown1"><?php echo $this->aRaces[$this->nextRaceKey]->qualifyingStart->get("yyyy-MM-dd HH:mm:ss");?> GMT+00:00</span>
+
+<div class="calendar">
+<table cellspacing="0">
+    <thead>
+    <tr>
+        <th></th>
+        <th><fb:intl>Grand Prix</fb:intl></th>
+        <th><fb:intl>Race Date</fb:intl></th>
+        <th><fb:intl>Qualifying Start</fb:intl></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+<?php foreach ($this->aRaces as $race): ?>
+    <tr>
+        <td><?php echo $this->predictionMade($race->raceId, $this->userId) ? '<img alt="Prediction made" title="Prediction made" src="' . $this->baseUrl() . '/assets/images/Select.png" width="16px" height="16px"/>' : ''; ?></td>
+        <td class="even_column"><a href="<?php echo 'prediction/prediction/raceId/' . $race->raceId ?>"><?php echo $race->location->name ?></a></td>
+        <?php
+            $race->raceStart->add($this->userTimezone["timezone"], Zend_Date::HOUR);
+            $race->qualifyingStart->add($this->userTimezone["timezone"], Zend_Date::HOUR);
+        ?>
+        <td><?php echo $race->raceStart->get(Zend_Date::DATE_MEDIUM, Zend_Locale::findLocale($this->userTimezone["locale"])); ?></td>
+        <td><?php echo $race->qualifyingStart->get(Zend_Date::DATETIME_MEDIUM, Zend_Locale::findLocale($this->userTimezone["locale"])); ?></td>
+        <td><img src="<?php echo $this->baseUrl() . '/assets/images/flags/' . $this->Flag($race->location); ?>" /></td>
+    </tr>
+<?php endforeach ?>
+    </tbody>
+</table>
+</div>
+
+<?php echo $this->inlineScript()->appendFile($this->baseUrl() . "/assets/js/countdownpro.js"); ?>

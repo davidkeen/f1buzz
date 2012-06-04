@@ -1,0 +1,252 @@
+h1, h2, h3, h4, h5
+{
+    font-size: 13px;
+}
+
+/* Forms */
+dl.zend_form
+{
+    width: 41.1em;
+    /*margin: 2em 0;*/
+    padding: 0;
+}
+
+.zend_form dt
+{
+    width: 15em;
+    float: left;
+    margin: 0 0 0 0;
+    padding: .5em;
+    font-weight: bold;
+}
+
+/* commented backslash hack for mac-ie5 \*/
+.zend_form dt { clear: both; }
+/* end hack */
+
+.zend_form dd
+{
+    float: left;
+    width: 24em;
+    margin: 0 0 0 0;
+    padding: .5em;
+}
+
+.standings table
+{
+    border: 1px black solid;
+    width: 100%;
+}
+
+.standings table tr
+{
+    background-color:#FFFFFF;
+}
+
+.standings table tr.odd
+{
+    background-color:#F0F0FF;
+}
+
+.standings table td
+{
+    padding:3px 3px 3px 9px;
+    text-align: center;
+}
+
+.standings .subheader
+{
+    color:gray;
+    font-size:9px;
+}
+
+.calendar table
+{
+    margin-left:20px;
+    margin-top:17px;
+    width:570px;
+    text-align:left;
+}
+
+.calendar table th.name_heading
+{
+    color:#333333;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.calendar table th
+{
+    border-color:#C7CFE0;
+    border-bottom:1px solid #E2E6EF;
+    margin:0;
+    padding:3px;
+    color:#777777;
+    font-size:9px;
+}
+
+.calendar table td
+{
+    border-bottom:1px solid #E2E6EF;
+    margin:0;
+    padding:3px;
+    color:#555555;
+    font-size:11px;
+}
+
+.calendar table .even_column
+{
+    background:#F8F8F8 none repeat scroll 0 0;
+}
+
+.calendar table td.action_text
+{
+    width:230px;
+}
+
+#countdown1
+{
+    color:#000000;
+    font-family:eurostile,arial,helvetica,sans-serif;
+    font-size:1.2em;
+    letter-spacing:2px;
+    line-height:110%;
+    visibility:hidden;
+    white-space:nowrap;
+}
+
+/*#countdown1:before
+{
+    content:url("../images/snake.gif");
+}*/
+
+table.profile-prediction
+{
+    width: 100%;
+    text-align: left;
+}
+
+table.profile-prediction td
+{
+    vertical-align: top;
+}
+
+table.profile-prediction th
+{
+    text-align: left;
+    padding-left: 0;
+}
+
+table.profile-prediction ul
+{
+    padding-left: 1em;
+}
+
+.user-pic
+{
+    float: left;
+    width: 200px;
+    border-right: 2px solid gray;
+    padding-right: 10px;
+}
+
+#accordion
+{
+    clear: both;
+}
+
+#trophies
+{
+    width: 532px;
+    /*height: 200px;*/
+    float: left;
+}
+
+#trophies li
+{
+    list-style: none outside none;
+    float: left;
+}
+
+/*img.trophy
+{
+    padding: 2px;
+}*/
+
+#chart
+{
+    clear: both;
+    display: block;
+    width: 744px;
+    height: 250px;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.help-box
+{
+    padding: 0;
+}
+
+.help-box li
+{
+    /*width: 232px;*/
+    /*float: left;*/
+    list-style-type: none;
+    list-style-image: none;
+    list-style-position: outside;
+    padding-bottom: 12px;
+}
+
+.roundedcornr_box_867993 {
+	background: url(../images/roundedcornr_867993_tl.png) no-repeat top left;
+}
+.roundedcornr_top_867993 {
+	background: url(../images/roundedcornr_867993_tr.png) no-repeat top right;
+}
+.roundedcornr_bottom_867993 {
+	background: url(../images/roundedcornr_867993_bl.png) no-repeat bottom left;
+}
+.roundedcornr_bottom_867993 div {
+	background: url(../images/roundedcornr_867993_br.png) no-repeat bottom right;
+}
+.roundedcornr_content_867993 {
+	background: url(../images/roundedcornr_867993_r.png) top right repeat-y;
+}
+
+.roundedcornr_top_867993 div,.roundedcornr_top_867993,
+.roundedcornr_bottom_867993 div, .roundedcornr_bottom_867993 {
+	width: 100%;
+	height: 15px;
+	font-size: 1px;
+}
+.roundedcornr_content_867993, .roundedcornr_bottom_867993 {
+	margin-top: -15px;
+}
+.roundedcornr_content_867993 { padding: 0 15px; }
+
+.roundedcornr_content_867993 div.box-content
+{
+    height: 170px;
+}
+
+.roundedcornr_content_867993 div.box-content li
+{
+    list-style-type: disc;
+    list-style-image: none;
+    list-style-position: outside;
+    padding-bottom: 0;
+}
+
+.roundedcornr_content_867993 div.box-content, .roundedcornr_content_867993 a
+{
+    font-size: 14px;
+}
+
+.roundedcornr_content_867993 img
+{
+    float: right;
+    width: 80px;
+    height: 80px;
+    padding: 5px;
+}
